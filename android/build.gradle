@@ -10,13 +10,19 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
+
+def safeExtGet(prop, fallback) {
+  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+
 android {
-  compileSdkVersion 25
-  buildToolsVersion '25.0.2'
+  compileSdkVersion safeExtGet('compileSdkVersion', 25)
+  buildToolsVersion safeExtGet('buildToolsVersion', '25.0.2')
 
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 22
+    minSdkVersion safeExtGet('minSdkVersion', 16)
+    targetSdkVersion safeExtGet('targetSdkVersion', 22)
     versionCode 1
     versionName '1.0'
   }
@@ -45,6 +51,7 @@ dependencies {
   provided 'com.segment.analytics.android.integrations:countly:1.0.0'
   provided 'com.segment.analytics.android.integrations:crittercism:1.0.0'
   provided 'com.segment.analytics.android.integrations:firebase:1.1.0'
+  provided 'com.segment.analytics.android.integrations:flurry:3.0.0'
   provided 'com.segment.analytics.android.integrations:google-analytics:2.0.0'
   provided 'com.segment.analytics.android.integrations:intercom:1.1.0-beta'
   provided 'com.segment.analytics.android.integrations:localytics:1.1.0'
